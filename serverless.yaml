@@ -1,0 +1,23 @@
+service: MLB-results-app
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  memorySize: 1024 # optional, in MB, default is 1024
+  timeout: 60 # optional, in seconds, default is 6
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: any
+          path: /{any+}
