@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SchedulesModule } from './schedules/schedules.module';
-import { CModule } from './s/c/c.module';
-import { SchedulesModule } from './schedules/schedules.module';
+import { SchedulesModule } from './modules/schedules/schedules.module';
+import { SharedModule } from './shared/shared.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [SchedulesModule, CModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    SchedulesModule,
+    SharedModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

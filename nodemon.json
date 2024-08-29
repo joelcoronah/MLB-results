@@ -1,8 +1,6 @@
 {
-  "verbose": true,
   "watch": ["src"],
   "ext": "ts",
   "ignore": ["src/**/*.spec.ts"],
-  "exec": "ts-node ./bin/server",
-  "delay": "2500"
+  "exec": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/.bin/serverless offline start"
 }

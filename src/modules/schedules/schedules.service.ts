@@ -1,11 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { MlbService } from '../../shared/mlb.service';
 
 @Injectable()
 export class SchedulesService {
+  constructor(private readonly mlbService: MlbService) {}
+
   create(createScheduleDto: CreateScheduleDto) {
     return 'This action adds a new schedule';
+  }
+
+  async findTodayGames() {
+    try {
+      const todayGames = await this.mlbService.getMlbData(
+        'schedule/games/?sportId=1',
+      );
+      return todayGames;
+    } catch (error) {
+      throw new Error(`Failed to fetch today's games: ${error.message}`);
+    }
   }
 
   findAll() {
